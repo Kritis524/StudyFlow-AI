@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Study Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        textarea, input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .plan {
+            margin-top: 30px;
+        }
+
+        .day-block {
+            background: #eef3ff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Study Planner</h1>
+
+    <textarea id="syllabus" placeholder="Paste your syllabus here..."></textarea>
+
+    <input type="number" id="days" placeholder="Number of days">
+
+    <input type="number" id="hours" placeholder="Hours per day">
+
+    <button onclick="generatePlan()">Generate Plan</button>
+
+    <div class="plan" id="result"></div>
+</div>
+
+<script>
+    async function generatePlan() {
+
+        const syllabus = document.getElementById("syllabus").value;
+        const days = document.getElementById("days").value;
+        const hours = document.getElementById("hours").value;
+
+        const response = await fetch("/generate-plan", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                syllabus: syllabus,
+                days: days,
+                hours: hours
+            })
+        });
+
+        const data = await response.json();
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = "";
+
+        for (let day in data) {
+            resultDiv.innerHTML += `
+                <div class="day-block">
+                    <strong>${day}</strong><br>
+                    ${data[day].join("<br>")}
+                </div>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>StudyFlow AI</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">📘 StudyFlow AI</div>
+    <div class="nav-links">
+      <a href="#">New Plan</a>
+      <a href="#">My Schedule</a>
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <main class="container">
+
+    <!-- Left Section -->
+    <section class="left">
+      <span class="badge">AI-Powered Learning Architecture</span>
+
+      <h1>
+        Master Any Subject<br />
+        <span>In Your Time.</span>
+      </h1>
+
+      <p>
+        Stop planning and start learning. We generate optimized,
+        adaptive study schedules tailored to your syllabus and pace.
+      </p>
+
+      <h1>
+        Plan Your Studies<br />
+       <span>Without Stress.</span>
+      </h1>
+
+      <p>
+  This tool helps students break down their syllabus into
+  a realistic daily study plan based on available time and deadlines.
+      </p>
+    </section>
+
+    <!-- Right Section -->
+    <section class="right">
+      <h2>Design Your Learning Path</h2>
+      <p>Tell us what you want to learn, and we'll architect the perfect schedule.</p>
+
+      <label>Syllabus / Topics</label>
+      <textarea placeholder="Paste your syllabus, reading list, or concepts to cover..."></textarea>
+
+      <div class="row">
+        <div>
+          <label>Daily Commitment</label>
+          <input type="range" />
+          <small>2 hours / day</small>
+        </div>
+
+        <div>
+          <label>Duration</label>
+          <input type="range" />
+          <small>7 days total</small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <label>Intensity Level</label>
+          <select>
+            <option>Beginner</option>
+            <option selected>Intermediate (Balanced)</option>
+            <option>Advanced</option>
+          </select>
+        </div>
+
+        <div>
+          <label>Start Date</label>
+          <input type="date" />
+        </div>
+      </div>
+
+      <button>Generate My Plan →</button>
+      <div id="result" style="margin-top: 25px;"></div>
+
+    </section>
+
+  </main>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
