@@ -58,7 +58,7 @@ def generate_plan():
 
     # 🔹 Save plan to database
     new_plan = StudyPlan(
-        user_id=none, # type: ignore
+        user_id=None, # type: ignore
         syllabus=syllabus_text,   # type: ignore
         generated_plan=str(plan) # type: ignore
     )
@@ -79,7 +79,7 @@ def register():
     if User.query.filter_by(email=email).first():
         return jsonify({"message": "User already exists"}), 400
 
-    new_user = User(name=name, email=email, password=password)
+    new_user = User(name=name, email=email, password=password)  # type: ignore
     db.session.add(new_user)
     db.session.commit()
 

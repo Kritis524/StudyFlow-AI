@@ -1,4 +1,6 @@
-document.querySelector("button").addEventListener("click", async () => {
+document.querySelector("form").addEventListener("submit", async (event) => {
+  event.preventDefault(); // VERY IMPORTANT
+
   const syllabus = document.querySelector("textarea").value;
 
   const response = await fetch("/generate-plan", {
@@ -13,23 +15,22 @@ document.querySelector("button").addEventListener("click", async () => {
 
   const plan = await response.json();
   const resultDiv = document.getElementById("result");
-resultDiv.innerHTML = "";
+  resultDiv.innerHTML = "";
 
-for (const day in plan) {
-  const dayCard = document.createElement("div");
-  dayCard.style.background = "#f3f4f6";
-  dayCard.style.padding = "15px";
-  dayCard.style.marginBottom = "10px";
-  dayCard.style.borderRadius = "10px";
+  for (const day in plan) {
+    const dayCard = document.createElement("div");
+    dayCard.style.background = "#f3f4f6";
+    dayCard.style.padding = "15px";
+    dayCard.style.marginBottom = "10px";
+    dayCard.style.borderRadius = "10px";
 
-  let content = `<h4>${day}</h4><ul>`;
-  plan[day].forEach(topic => {
-    content += `<li>${topic}</li>`;
-  });
-  content += "</ul>";
+    let content = `<h4>${day}</h4><ul>`;
+    plan[day].forEach(topic => {
+      content += `<li>${topic}</li>`;
+    });
+    content += "</ul>";
 
-  dayCard.innerHTML = content;
-  resultDiv.appendChild(dayCard);
-}
-
+    dayCard.innerHTML = content;
+    resultDiv.appendChild(dayCard);
+  }
 });
