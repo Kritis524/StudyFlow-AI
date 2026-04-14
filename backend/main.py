@@ -16,9 +16,14 @@ load_dotenv()
 
 app = FastAPI()
 
+
+# 2. Add the "Handshake" code right here
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        "https://studyflowai.vercel.app",  # Your production URL
+        "http://localhost:3000",           # For local testing
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -27,9 +32,16 @@ app.add_middleware(
 # Configure Gemini
 api_key = os.getenv("GEMINI_API_KEY", "")
 if api_key:
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    try:
+        genai.configure(api_key=api_key)
+        # Using 'gemini-1.5-flash' is standard, but some regions/versions prefer the full path
+        model = genai.GenerativeModel('gemini-2.5-flash-lite')
+        print("Gemini model configured successfully.")
+    except Exception as e:
+        print(f"Error configuring Gemini: {e}")
+        model = None
 else:
+    print("No GEMINI_API_KEY found in environment.")
     model = None
 
 # MongoDB setup

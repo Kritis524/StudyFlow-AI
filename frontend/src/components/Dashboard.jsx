@@ -23,7 +23,7 @@ const Dashboard = ({ user }) => {
   return (
     <div>
       <div className="page-header">
-        <h1 className="page-title">Welcome back, {user?.name || 'User'} 👋</h1>
+        <h1 className="page-title">Welcome back, {user?.name || 'User'} </h1>
         <p className="page-subtitle">Here's your study overview for today. Add your tasks and subjects to get started!</p>
       </div>
 
